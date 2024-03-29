@@ -20,7 +20,7 @@ async def on_ready():
 class GifType(disnake.ui.Modal):
     def __init__(self, url):
         self.url = url
-        components = [disnake.ui.TextInput(label="Enter the GIF type:", placeholder="youtube", custom_id="type", style=TextInputStyle.short, max_length=14)]
+        components = [disnake.ui.TextInput(label="Enter the GIF type:", placeholder="minecraft", custom_id="type", style=TextInputStyle.short, max_length=14)]
         super().__init__(title="GIF generator", components=components)
     
     async def callback(self, inter: disnake.ModalInteraction) -> None:
