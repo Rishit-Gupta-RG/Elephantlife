@@ -27,7 +27,7 @@ class GifType(disnake.ui.Modal):
         gif_type = inter.text_values["type"].lower()
         
         if gif_type not in ('abstract', 'ads', 'balls', 'bayer', 'bevel', 'billboard', 'blocks', 'blur', 'boil', 'bomb', 'bonks', 'bubble', 'burn', 'canny', 'cartoon', 'cinema', 'clock', 'cloth', 'contour', 'cow', 'cracks', 'cube', 'dilate', 'dither', 'dots', 'earthquake', 'emojify', 'endless', 'equations', 'explicit', 'fall', 'fan', 'fire', 'flag', 'flush', 'gallery', 'gameboy_camera', 'glitch', 'globe', 'half_invert', 'heart_diffraction', 'hearts', 'infinity', 'ipcam', 'kanye', 'knit', 'lamp', 'laundry', 'layers', 'letters', 'lines', 'liquefy', 'logoff', 'lsd', 'magnify', 'matrix', 'melt', 'minecraft', 'neon', 'optics', 'painting', 'paparazzi', 'patpat', 'pattern', 'phase', 'phone', 'pizza', 'plank', 'plates', 'poly', 'print', 'pyramid', 'radiate', 'rain', 'reflection', 'ripped', 'ripple', 'roll', 'sensitive', 'shear', 'shine', 'shock', 'shoot', 'shred', 'slice', 'soap', 'spikes', 'spin', 'stereo', 'stretch', 'tiles', 'tunnel', 'tv', 'wall', 'warp', 'wave', 'wiggle', 'zonk'):
-            await inter.response.send_message("Wrong GIF type.\nPlease select the GIF type from https://discord.com/channels/1163511761446637681/1198637019660816394/1223339737813614612, and make sure to type ir correctly.", ephemeral=True)
+            await inter.response.send_message("Wrong GIF type.\nPlease select the GIF type from <https://discord.com/channels/1163511761446637681/1198637019660816394/1223339737813614612>, and make sure to type it correctly.", ephemeral=True)
         else:
             params = {'image_url': self.url}
             headers = {'Authorization': f'Bearer {os.getenv("JEYY_API_KEY")}'}
