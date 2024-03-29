@@ -53,8 +53,12 @@ async def gif_gen(inter: disnake.MessageCommand, message: disnake.Message):
             await inter.response.send_message("The attachment is not an image or a GIF.", ephemeral=True)
     else:
         if message.content:
+            if "tenor.com" in message.content:
+                url = message.content
+                modal = GifType(url)
+                await inter.response.send_modal(modal=modal)
             urls = re.findall(r'(https?://\S+)', message.content)
-            if urls:
+            elif urls:
                 for url in urls:
                     if re.search(image_extensions_pattern, url, re.IGNORECASE):
                         modal = GifType(url)
