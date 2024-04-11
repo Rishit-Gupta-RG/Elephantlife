@@ -41,8 +41,6 @@ class GifType(disnake.ui.Modal):
                     await asyncio.sleep(10)
                     await inter.edit_original_response(file=disnake.File(buffer, 'output.gif'))
 
-image_extensions_pattern = r'\.(jpg|jpeg|png|gif|)$'
-
 @bot.user_command(name="Create Gif")
 async def gif_gen(inter: disnake.UserCommandInteraction, user: disnake.User):
     await inter.response.send_modal(modal=GifType(user.display_avatar.url))
