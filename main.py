@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-bot = commands.InteractionBot()
+bot = commands.InteractionBot(test_guilds=[982329167049785394])
 
 @bot.event
 async def on_ready():
@@ -28,8 +28,10 @@ class GifType(disnake.ui.Modal):
     async def callback(self, inter: disnake.ModalInteraction) -> None:
         gif_type = inter.text_values["type"].lower()
         
+        await inter.response.defer(ephemeral=True)
+
         if gif_type not in ('abstract', 'ads', 'balls', 'bayer', 'bevel', 'billboard', 'blocks', 'blur', 'boil', 'bomb', 'bonks', 'bubble', 'burn', 'canny', 'cartoon', 'cinema', 'clock', 'cloth', 'contour', 'cow', 'cracks', 'cube', 'dilate', 'dither', 'dots', 'earthquake', 'emojify', 'endless', 'equations', 'explicit', 'fall', 'fan', 'fire', 'flag', 'flush', 'gallery', 'gameboy_camera', 'glitch', 'globe', 'half_invert', 'heart_diffraction', 'hearts', 'infinity', 'ipcam', 'kanye', 'knit', 'lamp', 'laundry', 'layers', 'letters', 'lines', 'liquefy', 'logoff', 'lsd', 'magnify', 'matrix', 'melt', 'minecraft', 'neon', 'optics', 'painting', 'paparazzi', 'patpat', 'pattern', 'phase', 'phone', 'pizza', 'plank', 'plates', 'poly', 'print', 'pyramid', 'radiate', 'rain', 'reflection', 'ripped', 'ripple', 'roll', 'sensitive', 'shear', 'shine', 'shock', 'shoot', 'shred', 'slice', 'soap', 'spikes', 'spin', 'stereo', 'stretch', 'tiles', 'tunnel', 'tv', 'wall', 'warp', 'wave', 'wiggle', 'zonk'):
-            await inter.response.send_message("Wrong GIF type.\nPlease select the GIF type from <https://discord.com/channels/1163511761446637681/1198637019660816394/1223339737813614612>, and make sure to type it correctly.", ephemeral=True)
+            await inter.edit_original_response("Wrong GIF type.\nPlease select the GIF type from <https://discord.com/channels/1163511761446637681/1198637019660816394/1223339737813614612>, and make sure to type it correctly.", ephemeral=True)
         else:
             params = {'image_url': self.url}
             headers = {'Authorization': f'Bearer {os.getenv("JEYY_API_KEY")}'}
@@ -37,12 +39,12 @@ class GifType(disnake.ui.Modal):
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'https://api.jeyy.xyz/v2/image/{gif_type}', params=params, headers=headers) as response:
                     buffer = io.BytesIO(await response.read())
-                    await inter.response.defer(ephemeral=True)
-                    await asyncio.sleep(10)
+                    await asyncio.sleep(6)
                     await inter.edit_original_response(file=disnake.File(buffer, 'output.gif'))
 
-@bot.user_command(name="Create Gif")
-async def gif_gen(inter: disnake.UserCommandInteraction, user: disnake.User):
+@bot.user_command(name="Gif maker")
+async def also_nice(inter: disnake.UserCommandInteraction, user: disnake.User):
+    print(inter.id)
     await inter.response.send_modal(modal=GifType(user.display_avatar.url))
 
 gif_types = ['abstract', 'ads', 'balls', 'bayer', 'bevel', 'billboard', 'blocks', 'blur', 'boil', 'bomb', 'bonks', 'bubble', 'burn', 'canny', 'cartoon', 'cinema', 'clock', 'cloth', 'contour', 'cow', 'cracks', 'cube', 'dilate', 'dither', 'dots', 'earthquake', 'emojify', 'endless', 'equations', 'explicit', 'fall', 'fan', 'fire', 'flag', 'flush', 'gallery', 'gameboy_camera', 'glitch', 'globe', 'half_invert', 'heart_diffraction', 'hearts', 'infinity', 'ipcam', 'kanye', 'knit', 'lamp', 'laundry', 'layers', 'letters', 'lines', 'liquefy', 'logoff', 'lsd', 'magnify', 'matrix', 'melt', 'minecraft', 'neon', 'optics', 'painting', 'paparazzi', 'patpat', 'pattern', 'phase', 'phone', 'pizza', 'plank', 'plates', 'poly', 'print', 'pyramid', 'radiate', 'rain', 'reflection', 'ripped', 'ripple', 'roll', 'sensitive', 'shear', 'shine', 'shock', 'shoot', 'shred', 'slice', 'soap', 'spikes', 'spin', 'stereo', 'stretch', 'tiles', 'tunnel', 'tv', 'wall', 'warp', 'wave', 'wiggle', 'zonk']
@@ -51,16 +53,19 @@ async def autocomplete_gif_types(inter, string: str) -> List[str]:
     match, _ = process.extractOne(string, gif_types)
     return [match]
 
-@bot.slash_command(name="gif", description="Creates a nice GIF")
-async def gif(inter: disnake.ApplicationCommandInteraction, image: disnake.Attachment, type: str = commands.Param(autocomplete=autocomplete_gif_types)):
+@bot.slash_command(name="gifmaker", description="Creates a nice GIF")
+async def gifmaker(inter: disnake.ApplicationCommandInteraction, image: disnake.Attachment, type: str = commands.Param(autocomplete=autocomplete_gif_types)):
         """
+        Creates a nice GIF
+
         Parameters
         ----------
         image: Upload the image you need to make a GIF of
         type: Select the GIF type
         """
+        await inter.response.defer(ephemeral=True)
         if type.lower() not in gif_types:
-            await inter.response.send_message("Wrong GIF type.\nPlease select the GIF type from <https://discord.com/channels/1163511761446637681/1198637019660816394/1223339737813614612>, and make sure to type it correctly.", ephemeral=True)
+            await inter.edit_original_response(content="Wrong GIF type.\nPlease select the GIF type from <https://discord.com/channels/1163511761446637681/1198637019660816394/1223339737813614612>, and make sure to type it correctly.", ephemeral=True)
         else:
             if image.content_type == 'image/webp':
                 k = await image.read()
@@ -85,11 +90,10 @@ async def gif(inter: disnake.ApplicationCommandInteraction, image: disnake.Attac
                 async with aiohttp.ClientSession() as session:
                     async with session.get(f'https://api.jeyy.xyz/v2/image/{type}', params=params, headers=headers) as response:
                         buffer = io.BytesIO(await response.read())
-                        await inter.response.defer(ephemeral=True)
                         await asyncio.sleep(6)
                         await inter.edit_original_response(file=disnake.File(buffer, 'output.gif'))
             else:
-                await inter.response.send_message("The attachment is not an image.", ephemeral=True)
+                await inter.edit_original_response(content="The attachment is not an image.", ephemeral=True)
 
 @tasks.loop(count=1)
 async def patch_app_commands():
