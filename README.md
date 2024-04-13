@@ -29,7 +29,7 @@ Elephantlife is a user-installable app written in [disnake](https://github.com/D
 ## Commands & features
 `/gifmaker` - Upload an image to create a GIF
 
-`Gif maker` (Context menu user command) - Create a GIF using the profile picture of the user directly
+`Gif maker` (Context menu user command) - Create a GIF using the profile picture of a user directly
 
 Can be used anywhere on discord (you must have permissions to use app commands in the channel where you want to use it)
 
