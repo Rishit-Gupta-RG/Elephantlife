@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-bot = commands.InteractionBot(test_guilds=[982329167049785394])
+bot = commands.InteractionBot()
 
 @bot.event
 async def on_ready():
