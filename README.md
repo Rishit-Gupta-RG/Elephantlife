@@ -1,7 +1,7 @@
 # Elephantlife
 ![image](https://github.com/Rishit-Gupta-RG/Elephantlife/assets/83908451/14fae009-0ab9-498a-b237-fa76762cc09d)
 
-Elephantlife is a user-installable app written in [disnake](https://github.com/DisnakeDev/disnake), Discord [released](https://discord.com/developers/docs/change-log#userinstallable-apps-preview) a preview for user-installable apps on 18 March 2024. Elephantlife can create amazing GIFs using the [Jeyy API](https://api.jeyy.xyz/dashboard/).
+Elephantlife is a user-installable app written in [disnake](https://github.com/DisnakeDev/disnake). Discord [released](https://discord.com/developers/docs/change-log#userinstallable-apps-preview) a preview for user-installable apps on 18 March 2024. Elephantlife can create amazing GIFs using the [Jeyy API](https://api.jeyy.xyz/dashboard/).
 
 # How to create a user-installable app?
 1. Go to https://discord.com/developers/applications & create an application (or select an existing one).
