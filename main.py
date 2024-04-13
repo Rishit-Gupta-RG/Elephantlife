@@ -44,7 +44,6 @@ class GifType(disnake.ui.Modal):
 
 @bot.user_command(name="Gif maker")
 async def also_nice(inter: disnake.UserCommandInteraction, user: disnake.User):
-    print(inter.id)
     await inter.response.send_modal(modal=GifType(user.display_avatar.url))
 
 gif_types = ['abstract', 'ads', 'balls', 'bayer', 'bevel', 'billboard', 'blocks', 'blur', 'boil', 'bomb', 'bonks', 'bubble', 'burn', 'canny', 'cartoon', 'cinema', 'clock', 'cloth', 'contour', 'cow', 'cracks', 'cube', 'dilate', 'dither', 'dots', 'earthquake', 'emojify', 'endless', 'equations', 'explicit', 'fall', 'fan', 'fire', 'flag', 'flush', 'gallery', 'gameboy_camera', 'glitch', 'globe', 'half_invert', 'heart_diffraction', 'hearts', 'infinity', 'ipcam', 'kanye', 'knit', 'lamp', 'laundry', 'layers', 'letters', 'lines', 'liquefy', 'logoff', 'lsd', 'magnify', 'matrix', 'melt', 'minecraft', 'neon', 'optics', 'painting', 'paparazzi', 'patpat', 'pattern', 'phase', 'phone', 'pizza', 'plank', 'plates', 'poly', 'print', 'pyramid', 'radiate', 'rain', 'reflection', 'ripped', 'ripple', 'roll', 'sensitive', 'shear', 'shine', 'shock', 'shoot', 'shred', 'slice', 'soap', 'spikes', 'spin', 'stereo', 'stretch', 'tiles', 'tunnel', 'tv', 'wall', 'warp', 'wave', 'wiggle', 'zonk']
